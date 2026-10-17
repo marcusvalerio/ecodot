@@ -20,7 +20,11 @@ export default function Home(){
  const [name,setName]=useState("");
  const [role,setRole]=useState("");
  const [directives,setDirectives]=useState("");
- const [error,setError]=useState("");\n const [analysisError,setAnalysisError]=useState("");\n const [analysisNotice,setAnalysisNotice]=useState("");\n const [analyzing,setAnalyzing]=useState(false);\n const [spec,setSpec]=useState<AgentSpec|null>(null);
+ const [error,setError]=useState("");
+ const [analysisError,setAnalysisError]=useState("");
+ const [analysisNotice,setAnalysisNotice]=useState("");
+ const [analyzing,setAnalyzing]=useState(false);
+ const [spec,setSpec]=useState<AgentSpec|null>(null);
  const [view,setView]=useState("employees");
  const [editingId,setEditingId]=useState<string|null>(null);
  const all=useMemo(()=>[...employees,...references],[employees]);

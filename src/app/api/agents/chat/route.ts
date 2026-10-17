@@ -15,7 +15,8 @@ export async function POST(request: Request) {
   if(a.status!=="ready"&&a.status!=="running") return NextResponse.json({error:"Ative o funcionário antes de conversar."},{status:409});
   const key=process.env.AI_API_KEY, model=process.env.AI_MODEL;
   if(!key||!model) return NextResponse.json({error:"Configure AI_API_KEY e AI_MODEL nas variáveis da Vercel e publique novamente."},{status:503});
-  const rawMessages=body.messages as Array<{role?:unknown;content?:unknown}>;\n  const messages=rawMessages.filter((m)=>m&&(m.role==="user"||m.role==="assistant")&&typeof m.content==="string").slice(-20).map((m)=>({role:m.role as "user"|"assistant",content:(m.content as string).slice(0,6000)}));
+  const rawMessages=body.messages as Array<{role?:unknown;content?:unknown}>;
+  const messages=rawMessages.filter((m)=>m&&(m.role==="user"||m.role==="assistant")&&typeof m.content==="string").slice(-20).map((m)=>({role:m.role as "user"|"assistant",content:(m.content as string).slice(0,6000)}));
   if(!messages.length||messages[messages.length-1].role!=="user") return NextResponse.json({error:"Envie uma mensagem."},{status:400});
   const base=(process.env.AI_BASE_URL||"https://api.openai.com/v1").replace(/\/$/,"");
   const r=await fetch(base+"/chat/completions",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({model,temperature:.4,messages:[{role:"system",content:"Você é "+a.name+", cargo "+a.role_title+", funcionário digital do ECO DOT. Siga estas diretrizes: "+a.directives+"\n\nVocê apenas conversa e gera conteúdo; não alegue executar ações externas ou usar ferramentas que não foram conectadas. Não invente fatos; explicite incertezas."},...messages]}),signal:AbortSignal.timeout(45000)});

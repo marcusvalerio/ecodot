@@ -15,7 +15,7 @@ O ECO DOT está sendo desenvolvido para permitir que você crie funcionários di
 - Análise de diretrizes em modo local ou via endpoint compatível com OpenAI, quando configurado.
 - Proteção da análise de diretrizes por sessão autenticada.
 - Endpoint administrativo para listar/criar usuários, com registro de auditoria.
-- Modelo de dados para usuários, funcionários, tarefas e auditoria.
+- Modelo de dados para usuários, funcionários, tarefas, auditoria e histórico persistente de conversas.\n- Chat dos funcionários com histórico no PostgreSQL, limitado por proprietário e com janela de contexto controlada.
 - GitHub Actions para validação de tipos, lint e build.
 
 ## Limitações importantes
@@ -49,7 +49,7 @@ npm run dev
 
 ## Modelo de dados
 
-A migração inicial está em `database/migrations/001_initial_schema.sql`. Ela define `eco_users`, `eco_agents`, `eco_tasks` e `eco_audit_log`.
+As migrações SQL estão em `database/migrations/`. A `001_initial_schema.sql` define usuários, funcionários, tarefas e auditoria. A `002_chat_history.sql` cria `eco_agent_chat_messages`, usada para manter o histórico de conversa por funcionário e usuário. Aplique as migrações no Neon na ordem numérica antes de usar a aplicação.
 
 ## Segurança
 

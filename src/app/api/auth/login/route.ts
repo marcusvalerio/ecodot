@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   const password = typeof body.password === "string" ? body.password : "";
   if (!/^[a-z0-9._-]{3,80}$/.test(username) || password.length < 8 || password.length > 200) return NextResponse.json({error:"Usuário ou senha inválidos."},{status:400});
   try {
-    let result = await db.query("SELECT id, username, password_hash, role, is_active FROM eco_users WHERE username=$1 LIMIT 1",[username]);
+    const result = await db.query("SELECT id, username, password_hash, role, is_active FROM eco_users WHERE username=$1 LIMIT 1",[username]);
     let user = result.rows[0];
     const initialUsername = (process.env.ECO_ADMIN_USERNAME || "").trim().toLowerCase();
     const initialPassword = process.env.ECO_ADMIN_PASSWORD || "";

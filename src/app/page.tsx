@@ -13,7 +13,13 @@ const references: Employee[] = [
 ];
 export default function Home(){
  const [employees,setEmployees]=useState<Employee[]>([]);
- const [hydrated,setHydrated]=useState(false);\n const [authLoading,setAuthLoading]=useState(true);\n const [authenticated,setAuthenticated]=useState(false);\n const [loginUsername,setLoginUsername]=useState("marcus");\n const [loginPassword,setLoginPassword]=useState("");\n const [loginError,setLoginError]=useState("");\n const [loginBusy,setLoginBusy]=useState(false);
+ const [hydrated,setHydrated]=useState(false); 
+ const [authLoading,setAuthLoading]=useState(true); 
+ const [authenticated,setAuthenticated]=useState(false); 
+ const [loginUsername,setLoginUsername]=useState("marcus"); 
+ const [loginPassword,setLoginPassword]=useState(""); 
+ const [loginError,setLoginError]=useState(""); 
+ const [loginBusy,setLoginBusy]=useState(false);
  const [showCreate,setShowCreate]=useState(false);
  const [selected,setSelected]=useState<Employee|null>(null);
  const [query,setQuery]=useState("");

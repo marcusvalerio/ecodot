@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 
@@ -42,6 +43,8 @@ function localAnalysis(name: string, role: string, directives: string): AgentSpe
 }
 
 export async function POST(request: Request) {
+  const user = await getSession();
+  if (!user) return NextResponse.json({ error: "Autenticação necessária." }, { status: 401 });
   let body: { name?: unknown; role?: unknown; directives?: unknown };
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Envie um JSON válido." }, { status: 400 }); }
   const name = typeof body.name === "string" ? body.name.trim().slice(0, 120) : "";

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createHmac, randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
+import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import { db } from "@/lib/db";
 import { createSession, sessionCookieName } from "@/lib/session";
